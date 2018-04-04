@@ -15,7 +15,9 @@ class TitleTest(LiveServerTestCase):
         self.browser.quit()
 
     def test_title_shown_on_home_page(self):
+        # Load home page
         self.browser.get(self.live_server_url)
+        # assert Wishlist appears in home page title
         assert 'Wishlist' in self.browser.title
 
 class FunctionalityTests(LiveServerTestCase):

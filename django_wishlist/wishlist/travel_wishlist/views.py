@@ -27,10 +27,12 @@ def place_list(request):
     return render(request, 'travel_wishlist/wishlist.html',
                   {'places': places, 'new_place_form': new_place_form})
 
+# Display a page of places visited
 def places_visited(request):
     visited = Place.objects.filter(visited=True)
     return render(request, 'travel_wishlist/visited.html', {'visited': visited})
 
+# Update the database and save update
 def place_is_visited(request):
     if request.method == 'POST':
         pk = request.POST.get('pk')
