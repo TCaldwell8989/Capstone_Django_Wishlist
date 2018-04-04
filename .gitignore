@@ -1,0 +1,7 @@
+*.pyc
+__pycache__
+db.sqlite3
+venv
+geckodriver
+.idea/
+.DS_Store
