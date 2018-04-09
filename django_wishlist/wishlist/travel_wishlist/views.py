@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Place
-from .forms import NewPlaceForm
+from .forms import NewPlaceForm, VisitedForm
 
 def place_list(request):
 
@@ -22,7 +22,7 @@ def place_list(request):
             return redirect('place_list')
 
 
-    places = Place.objects.filter(visited=False).order_by('name')
+    places = Place.objects.order_by('name')
     new_place_form = NewPlaceForm()
     return render(request, 'travel_wishlist/wishlist.html',
                   {'places': places, 'new_place_form': new_place_form})
@@ -41,3 +41,22 @@ def place_is_visited(request):
         place.save()
 
     return redirect('place_list')
+
+# get a row of data about a place from the database
+def place_detail(request, pk):
+    place = get_object_or_404(Place, pk=pk)
+    return render(request, 'travel_wishlist/place_detail.html', {'place': place})
+
+# Edit a place as visited with a user review and date visited
+def place_edit(request, pk):
+    place = get_object_or_404(Place, pk=pk)
+    if request.method == "POST":
+        form = VisitedForm(request.POST, instance=place)
+        if form.is_valid():
+            place = form.save(commit=False)
+            place.visited = True
+            place.save()
+            return redirect('place_detail', pk=place.pk)
+    else:
+        form = VisitedForm(instance=place)
+    return render(request, 'travel_wishlist/place_edit.html', {'form': form, 'place': place})

@@ -17,7 +17,9 @@
     "pk":3,
     "fields":{
       "name":"San Francisco",
-      "visited":"True"
+      "visited":"True",
+      "text":"Great weather in California",
+      "visited_date":"1989-08-09"
     }
   },
   { "model":"travel_wishlist.place",

@@ -54,3 +54,40 @@ class FunctionalityTests(LiveServerTestCase):
 
         # And the new place too
         assert 'Denver' in self.broswer.page_source
+
+    def test_add_new_visited_info(self):
+
+        # Load home page
+        self.broswer.get(self.live_server_url)
+        # Find url link for Tokyo
+        tokyo_link = self.broswer.find_element_by_id('place-name-1')
+        # and Click it
+        tokyo_link.click()
+
+        assert 'Visited' in self.broswer.page_source
+
+        # Find Visited link
+        visited_btn_link = self.broswer.find_element_by_id('visited-btn')
+        # and Click it
+        visited_btn_link.click()
+
+        assert 'Text:' in self.broswer.page_source
+        assert 'Visited date:' in self.broswer.page_source
+
+        # find input text box
+        input_text = self.broswer.find_element_by_id('id_text')
+        # load text into text box
+        input_text.send_keys('It was amazing!!!')
+        # find input visited date text box
+        input_date = self.broswer.find_element_by_id('id_visited_date')
+        # load a date into text box
+        input_date.send_keys('2015-08-09')
+        # find the save button
+        save_button = self.broswer.find_element_by_id('save-btn')
+        # and click it
+        save_button.click()
+
+        assert 'It was amazing!!!' in self.broswer.page_source
+        assert 'Visited On Aug. 9, 2015' in self.broswer.page_source
+
+

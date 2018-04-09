@@ -1,0 +1,17 @@
+{% extends 'travel_wishlist/base.html' %}
+
+{% block content %}
+    <div class="place">
+        <h1>{{ place.name }}</h1>
+        {% if place.visited_date %}
+            <div class="date">
+                <p>Visited On {{ place.visited_date }}</p>
+                <p> {{ place.text }}</p>
+            </div>
+        {% endif %}
+
+        {% if not place.visited_date %}
+            <a id="visited-btn" class="btn btn-default" href="{% url 'place_edit' pk=place.pk %}">Click here if Visited</a>
+        {% endif %}
+    </div>
+{% endblock %}

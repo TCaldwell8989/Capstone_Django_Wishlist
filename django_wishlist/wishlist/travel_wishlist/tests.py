@@ -23,9 +23,10 @@ class TestWishList(TestCase):
         # What data was sent to the template?
         data_rendered = list(response.context['places'])
         # What data is in the database? Get all of the items where visited = False
-        data_expected = list(Place.objects.filter(visited=False))
+        data_expected = list(Place.objects.all())
         # Is it the same?
         self.assertCountEqual(data_rendered, data_expected)
+
 
 class TestAddNewPlace(TestCase):
 
@@ -40,3 +41,4 @@ class TestAddNewPlace(TestCase):
         response_places = response.context['places']
         # Should be 1 item
         self.assertEqual(len(response_places), 1)
+

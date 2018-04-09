@@ -1,0 +1,10 @@
+{% extends 'travel_wishlist/base.html' %}
+
+{% block content %}
+    <h1>{{ place.name }}</h1>
+    <form method="POST" class="place-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button id="save-btn" type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}
